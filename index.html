@@ -330,8 +330,15 @@ dialog::backdrop{background:rgba(5,3,30,.78)}
 <script>document.documentElement.lang="he";document.documentElement.dir="rtl";
 try{const a=JSON.parse(localStorage.getItem("djy-a11y")||"{}"),c=document.documentElement.classList;if(a.contrast)c.add("a11y-contrast");if(a.noanim)c.add("a11y-noanim");if(a.links)c.add("a11y-links");if(a.font)c.add("a11y-font");if(a.size===1)c.add("a11y-big");if(a.size===2)c.add("a11y-bigger");
 if(!a.noanim&&"IntersectionObserver" in window&&!matchMedia("(prefers-reduced-motion: reduce)").matches)c.add("js-anim");}catch(e){}</script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1884909322690845');
+fbq('track','PageView');
+</script>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1884909322690845&ev=PageView&noscript=1"></noscript>
 <div class="page" lang="he" dir="rtl">
 <a class="skip" href="#main">דלגו לתוכן הראשי</a>
 
@@ -779,6 +786,8 @@ const CONFIG = {
         const preview=!CONFIG.LEAD_ENDPOINT;
         if(!preview){
           await fetch(CONFIG.LEAD_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)});
+          /* המרה למטא: כל מי שהשאיר פרטים נספר כליד */
+          if(window.fbq) fbq("track","Lead",{content_name:"dj-events-landing",content_category:form.id});
         }
         /* אחרי שליחה מוצלחת שני הטפסים מתחלפים בהודעת האישור */
         document.querySelectorAll(".form-card").forEach(c=>{
