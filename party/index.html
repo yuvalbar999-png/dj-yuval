@@ -366,6 +366,66 @@ bdo.tel{unicode-bidi:isolate;white-space:nowrap}
   .a11y{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
   footer{padding-bottom:176px}
 }
+/* ---------- סבב 2: hero מלא, סרטון, כרטיסי אירועים עם אייקונים, "למה דווקא אצלי" ---------- */
+.hero-grid{align-items:stretch}
+@media (min-width:861px){
+  .hero{padding-top:clamp(36px,5vw,64px)}
+  .hero h1{font-size:clamp(2.1rem,4.2vw,3.1rem)}
+  .hero h1 .big.mid{font-size:clamp(3rem,5.6vw,4.9rem)}
+  .events.picks .pi{width:64px;height:64px;border-radius:20px}
+  .events.picks .pi svg{width:34px;height:34px}
+}
+.events.picks{display:flex;flex-direction:column;padding-block:22px 12px}
+.events.picks h2{margin-bottom:6px}
+.events.picks ul{flex:1;display:grid;grid-auto-rows:1fr;gap:0}
+.events.picks li{display:block}
+.events.picks li::before{display:none}
+.events.picks li + li{border-top:1px solid var(--line)}
+.events.picks a{display:flex;align-items:center;gap:16px;height:100%;min-height:76px;padding-block:10px;color:var(--ink);text-decoration:none}
+.events.picks .pi{display:grid;place-items:center;flex:none;width:56px;height:56px;border-radius:18px;background:var(--navy);color:var(--c);box-shadow:inset 0 0 0 2px var(--c);transition:background-color .2s ease,color .2s ease,transform .25s cubic-bezier(.3,1.7,.5,1)}
+.events.picks .pi svg,.types .tile svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.events.picks .pi svg{width:30px;height:30px}
+.events.picks a:hover .pi,.events.picks a:focus-visible .pi{background:var(--c);color:#0f0a3f;transform:scale(1.08) rotate(-6deg)}
+.a11y-contrast .events.picks a:hover .pi,.a11y-contrast .events.picks a:focus-visible .pi{color:#000000}
+
+.clip{padding-block:clamp(24px,4vw,44px) 0}
+.clip .vid.wide{max-width:980px;margin:0 auto}
+
+.types .card.type{flex-direction:row;align-items:center;gap:clamp(16px,2.6vw,26px);padding:clamp(20px,3vw,30px);transition-property:opacity,transform,border-color,box-shadow}
+.types .card.type:hover{border-color:var(--c);box-shadow:0 22px 44px -26px var(--c)}
+.types .side{display:flex;flex-direction:column;align-items:center;gap:12px;flex:none}
+.types .tile{position:relative;display:grid;place-items:center;width:clamp(68px,9vw,88px);aspect-ratio:1;border-radius:50%;color:var(--c)}
+.types .tile::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--c),rgba(255,255,255,0) 58%,var(--c));animation:ring 5s linear infinite}
+.types .tile::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--navy)}
+.types .tile svg{position:relative;z-index:1;width:54%;height:54%}
+@keyframes ring{to{transform:rotate(1turn)}}
+.types .bars{display:flex;align-items:flex-end;gap:4px;height:22px}
+.types .bars i{width:5px;height:100%;border-radius:3px 3px 0 0;background:var(--c);transform-origin:50% 100%;animation:eq .7s ease-in-out infinite alternate}
+.types .bars i:nth-child(2){animation-duration:.95s;animation-delay:-.4s}
+.types .bars i:nth-child(3){animation-duration:.6s;animation-delay:-.2s}
+.types .bars i:nth-child(4){animation-duration:1.1s;animation-delay:-.7s}
+.types .tx{display:grid;gap:6px;min-width:0}
+.types .card.type h3{font-size:clamp(1.35rem,2.4vw,1.6rem);font-weight:800}
+.js-anim .types [data-reveal]:not(.in){opacity:0;transform:translateY(44px) scale(.9)}
+.js-anim .types .card.type:not(.in) .tile{transform:scale(.4) rotate(-90deg);opacity:0}
+.types .tile{transition:transform .8s cubic-bezier(.3,1.6,.5,1) calc(var(--i,0)*90ms + .15s),opacity .4s ease calc(var(--i,0)*90ms + .15s)}
+
+/* למה דווקא אצלי: הכרטיסים מתרוממים, האייקונים מציירים את עצמם, והמספר 10 נספר */
+.why .card{position:relative;overflow:hidden;transition-property:opacity,transform,border-color,box-shadow}
+.why .card:hover{border-color:var(--c,var(--pink));box-shadow:0 22px 44px -26px var(--c,var(--pink))}
+.why .card::after{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--c,var(--grad));transform-origin:100% 50%;transition:transform .9s cubic-bezier(.2,.7,.2,1) calc(var(--i,0)*90ms + .2s)}
+.why .card.star::after{background:var(--grad);height:7px}
+.js-anim .why .card:not(.in)::after{transform:scaleX(0)}
+.js-anim .why [data-reveal]:not(.in){opacity:0;transform:perspective(900px) rotateX(-24deg) translateY(48px) scale(.96)}
+.why [data-reveal]{transform-origin:50% 100%}
+.js-anim .why .card .ic svg,.js-anim .types .tile svg{stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1) calc(var(--i,0)*90ms + .3s)}
+.js-anim .why .card.in .ic svg,.js-anim .types .card.in .tile svg{stroke-dashoffset:0}
+.why .card .ic.num{font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion:reduce){ .types .tile::before,.types .bars i{animation:none} }
+.a11y-contrast .types .tile::before{background:#ffe600}
+.a11y-contrast .types .tile::after{background:#000000}
+@media (max-width:860px){ .quickbar{grid-template-columns:repeat(2,minmax(0,1fr))} }
 </style>
 <script>document.documentElement.lang="he";document.documentElement.dir="rtl";
 try{const a=JSON.parse(localStorage.getItem("djy-a11y")||"{}"),c=document.documentElement.classList;if(a.contrast)c.add("a11y-contrast");if(a.noanim)c.add("a11y-noanim");if(a.links)c.add("a11y-links");if(a.font)c.add("a11y-font");if(a.size===1)c.add("a11y-big");if(a.size===2)c.add("a11y-bigger");
@@ -381,6 +441,12 @@ fbq('track','PageView');
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1884909322690845&ev=PageView&noscript=1"></noscript>
 <div class="page" lang="he" dir="rtl">
 <a class="skip" href="#main">דלגו לתוכן הראשי</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-bm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7z"/></symbol>
+  <symbol id="i-bd" viewBox="0 0 24 24"><path d="M4 20h16M5 20v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7"/><path d="M5 15c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3.5 1.3 5 0"/><path d="M12 11V8M12 5.6c.9-1 .9-1.8 0-2.6-.9.8-.9 1.6 0 2.6z"/></symbol>
+  <symbol id="i-hp" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 14.5h2.5a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2z"/><path d="M20 14.5h-2.5a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h.5a2 2 0 0 0 2-2z"/></symbol>
+  <symbol id="i-cl" viewBox="0 0 24 24"><path d="M2.5 9 12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c1.6 1.6 3.4 2.3 5.5 2.3s3.9-.7 5.5-2.3V11"/><path d="M21.5 9v5"/></symbol>
+</defs></svg>
 
 <div class="topbar"><a href="tel:+972559821853"><span>מחפשים אטרקציה לאירוע של הילדים?</span> <b>התקשרו ליובל: <bdo dir="ltr" class="tel">055-9821853</bdo></b></a></div>
 
@@ -432,13 +498,13 @@ fbq('track','PageView');
           </div>
           <p class="hero-note">לא עניתי? כנראה אני באמצע מסיבה. השאירו פרטים ואחזור אליכם תוך 24 שעות.</p>
         </div>
-        <div class="events">
-          <h2>לאילו אירועים</h2>
+        <div class="events picks">
+          <h2>מה חוגגים?</h2>
           <ul>
-            <li style="--c:var(--pink)">בת מצווה ובר מצווה</li>
-            <li style="--c:var(--purple)">ימי הולדת עד גיל 13</li>
-            <li style="--c:var(--cyan)">מסיבת אוזניות</li>
-            <li style="--c:var(--white)">מסיבות כיתה וסוף שנה</li>
+            <li style="--c:var(--pink)"><a href="#ev-bm"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bm"/></svg></span><span>בת מצווה ובר מצווה</span></a></li>
+            <li style="--c:var(--purple)"><a href="#ev-bd"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bd"/></svg></span><span>ימי הולדת עד גיל 13</span></a></li>
+            <li style="--c:var(--cyan)"><a href="#ev-hp"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-hp"/></svg></span><span>מסיבת אוזניות</span></a></li>
+            <li style="--c:var(--white)"><a href="#ev-cl"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cl"/></svg></span><span>מסיבות כיתה וסוף שנה</span></a></li>
           </ul>
         </div>
       </div>
@@ -446,7 +512,17 @@ fbq('track','PageView');
     </div>
   </section>
 
-  <!-- טופס ראשון, מתחת לסקשן הראשון -->
+  <!-- סרטון מהרחבה, מיד אחרי הסקשן הראשון -->
+  <section class="clip" aria-labelledby="clipH">
+    <div class="wrap">
+      <h2 class="sr-only" id="clipH">סרטון ממסיבה</h2>
+      <div class="vid wide">
+        <video controls playsinline preload="none" poster="/floor-1.jpg" aria-label="סרטון: יובל מצטלם עם כיתה שלמה של ילדים עם אוזניות, כולם מריעים למצלמה"><source src="/floor-1.mp4" type="video/mp4"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- טופס ראשון, אחרי הסרטון -->
   <section class="contact top-form" id="check-top" aria-labelledby="tFormH">
     <div class="wrap top-grid">
       <div class="form-card">
@@ -509,34 +585,54 @@ fbq('track','PageView');
     <div class="wrap">
       <h2 class="h2" id="typesH">לאילו אירועים</h2>
       <ul class="cards">
-        <li class="card half" id="ev-bm" style="--c:var(--pink)">
-          <h3>דיג׳יי והפעלה לבת מצווה ולבר מצווה</h3>
-          <p>מסיבת בת מצווה שמרגישה כמו מסיבה אמיתית, בגובה העיניים של הילדים. פלייליסט שנבנה לגיל, הפעלות קבוצתיות, רכבת ולימבו, ורחבה מלאה לאורך כל הערב.</p>
-          <p>מתאים למסיבה בבית, בגינה או באולם, וגם למסיבת בת מצווה לכיתה.</p>
+        <li class="card half type" id="ev-bm" style="--c:var(--pink)">
+          <div class="side" aria-hidden="true">
+            <div class="tile"><svg viewBox="0 0 24 24"><use href="#i-bm"/></svg></div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="tx">
+            <h3>בת מצווה ובר מצווה</h3>
+            <p>דיג׳יי והפעלה לבת ולבר מצווה. בבית, בגינה או באולם, וגם מסיבה לכיתה.</p>
+          </div>
         </li>
-        <li class="card half" id="ev-bd" style="--c:var(--purple)">
-          <h3>הפעלה ליום הולדת עם דיג׳יי, עד גיל 13</h3>
-          <p>מחפשים מפעיל ליום הולדת? אני מגיע עם כל הציוד ומוביל את המסיבה מההתחלה ועד טקס העוגה: שבירת קרח, ריקודים, משחקים קבוצתיים והפעלות שמתאימות לגיל.</p>
-          <p>מתאים לבנים ולבנות, בבית, בחצר או בכל מקום שבחרתם.</p>
+        <li class="card half type" id="ev-bd" style="--c:var(--purple)">
+          <div class="side" aria-hidden="true">
+            <div class="tile"><svg viewBox="0 0 24 24"><use href="#i-bd"/></svg></div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="tx">
+            <h3>הפעלה ליום הולדת</h3>
+            <p>מפעיל ודיג׳יי ליום הולדת עד גיל 13, מההתחלה ועד טקס העוגה.</p>
+          </div>
         </li>
-        <li class="card half" id="ev-hp" style="--c:var(--cyan)">
-          <h3>מסיבת אוזניות לילדים</h3>
-          <p>כל ילד מקבל אוזניות אלחוטיות, והמוזיקה מתנגנת רק בהן. בחוץ שקט, בפנים רחבה שלמה שרוקדת.</p>
-          <p>מתאים במיוחד לבית, לבניין משותף, לשעות הערב ולכל מקום שאסור להרעיש בו.</p>
-          <p>רוצים לדעת כמה עולה מסיבת אוזניות? התקשרו ואתן לכם מחיר לפי התאריך ומספר הילדים: <a href="tel:+972559821853"><bdo dir="ltr" class="tel">055-9821853</bdo></a></p>
+        <li class="card half type" id="ev-hp" style="--c:var(--cyan)">
+          <div class="side" aria-hidden="true">
+            <div class="tile"><svg viewBox="0 0 24 24"><use href="#i-hp"/></svg></div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="tx">
+            <h3>מסיבת אוזניות לילדים</h3>
+            <p>המוזיקה רק באוזניות, בחוץ שקט. מתאים לבית, לבניין ולשעות הערב.</p>
+          </div>
         </li>
-        <li class="card half" id="ev-cl" style="--c:var(--white)">
-          <h3>מסיבת כיתה, מסיבת סיום כיתה&nbsp;ו׳ ומסיבת סוף שנה</h3>
-          <p>בתחילת המסיבה הילדים מפקידים את הטלפונים, ומאותו רגע כולם באמת ביחד: רחבת ריקודים, משחקים קבוצתיים והפעלות שמגבשות את הכיתה.</p>
+        <li class="card half type" id="ev-cl" style="--c:var(--white)">
+          <div class="side" aria-hidden="true">
+            <div class="tile"><svg viewBox="0 0 24 24"><use href="#i-cl"/></svg></div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="tx">
+            <h3>מסיבת כיתה וסוף שנה</h3>
+            <p>מסיבת כיתה, סיום כיתה&nbsp;ו׳ וסוף שנה. בלי טלפונים, כולם ביחד.</p>
+          </div>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- 4: מה מקבלים אצלי -->
-  <section class="get" aria-labelledby="getH">
+  <!-- 4: למה דווקא אצלי -->
+  <section class="get why" aria-labelledby="getH">
     <div class="wrap">
-      <h2 class="h2" id="getH">מה מקבלים אצלי</h2>
+      <h2 class="h2" id="getH">למה דווקא אצלי</h2>
       <ul class="cards">
         <li class="card star">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/><path d="M3 4l18 16"/></svg></div>
@@ -561,7 +657,7 @@ fbq('track','PageView');
           <p>אני מוביל את הילדים לאורך כל האירוע, לא רק שם שירים.</p>
         </li>
         <li class="card" style="--c:var(--cyan)">
-          <div class="ic num" aria-hidden="true">10</div>
+          <div class="ic num" aria-hidden="true" data-count="10">10</div>
           <h3>10 שנות ניסיון</h3>
           <p>והיכרות עם כל הטרנדים של הילדים היום.</p>
         </li>
@@ -600,7 +696,6 @@ fbq('track','PageView');
         <p>שיחה קצרה אחת, ותדעו אם התאריך פנוי וכמה זה עולה.</p>
         <div class="cta-row">
           <a class="btn" href="tel:+972559821853"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>חייגו ליובל: <bdo dir="ltr" class="tel">055-9821853</bdo></span></a>
-          <a class="btn btn-ghost" data-wa href="https://wa.me/972527460061" target="_blank" rel="noopener">שלחו הודעה בוואטסאפ<span class="sr-only"> (נפתח בחלון חדש)</span></a>
         </div>
       </div>
     </div>
@@ -630,9 +725,6 @@ fbq('track','PageView');
     <div class="wrap">
       <h2 class="h2" id="proofH">רגעים מהרחבה והמלצות מהורים</h2>
       <h3>סרטונים מהרחבה</h3>
-      <div class="vid wide">
-        <video controls playsinline preload="none" poster="/floor-1.jpg" aria-label="סרטון: יובל מצטלם עם כיתה שלמה של ילדים עם אוזניות, כולם מריעים למצלמה"><source src="/floor-1.mp4" type="video/mp4"></video>
-      </div>
       <div class="scroller" role="region" aria-label="עוד סרטונים מהרחבה" tabindex="0">
         <ul class="media four">
           <li class="vid"><video controls playsinline preload="none" poster="/floor-2.jpg" aria-label="סרטון: ילדים רוקדים ברחבה מתחת לכדורי דיסקו"><source src="/floor-2.mp4" type="video/mp4"></video></li>
@@ -750,7 +842,6 @@ fbq('track','PageView');
     <span>DJ Yuval, Party &amp; Events</span>
     <div class="links">
       <a href="tel:+972559821853">טלפון: <bdo dir="ltr" class="tel">055-9821853</bdo></a>
-      <a id="waLink" href="https://wa.me/972527460061" target="_blank" rel="noopener">וואטסאפ: <bdo dir="ltr">052-7460061</bdo><span class="sr-only"> (נפתח בחלון חדש)</span></a>
       <button type="button" class="linklike" id="openStatement">הצהרת נגישות</button>
     </div>
   </div>
@@ -778,14 +869,13 @@ fbq('track','PageView');
     <h3>מגבלות ידועות</h3>
     <p>למרות המאמצים, ייתכן שחלק מהתכנים, למשל סרטונים מהרחבה, עדיין לא נגישים במלואם. אם נתקלתם בקושי, אשמח לשמוע ולתקן.</p>
     <h3>פנייה בנושא נגישות</h3>
-    <p>יובל, טלפון או וואטסאפ: <bdo dir="ltr">052-7460061</bdo>. אשתדל לחזור אליכם בהקדם.</p>
-    <p>ההצהרה עודכנה בתאריך 13.11.2026.</p>
+    <p>יובל, טלפון: <a href="tel:+972559821853"><bdo dir="ltr" class="tel">055-9821853</bdo></a>. אשתדל לחזור אליכם בהקדם.</p>
+    <p>ההצהרה עודכנה בתאריך 20.11.2026.</p>
   </div>
 </dialog>
 
 <nav class="quickbar" aria-label="יצירת קשר מהירה">
   <a class="call" href="tel:+972559821853"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>התקשרו</span></a>
-  <a data-wa href="https://wa.me/972527460061" target="_blank" rel="noopener">וואטסאפ<span class="sr-only"> (נפתח בחלון חדש)</span></a>
   <a href="#check">בדקו זמינות</a>
 </nav>
 
@@ -810,7 +900,6 @@ fbq('track','PageView');
 <script>
 /* ===== הגדרות הדף. לשנות רק כאן ===== */
 const CONFIG = {
-  DJ_PHONE: "972527460061",   // וואטסאפ של יובל, פורמט בינלאומי
   CALL_PHONE: "972559821853", // טלפון העבודה להתקשרות. מופיע גם בקישורי tel: בדף עצמו
   LEAD_ENDPOINT: "https://script.google.com/macros/s/AKfycbzO2xImmczF1BYco7WjQC8ZfQoqWQnM9kywN3w3fy-rBkkM3QtaBlMaKcZfJsQld1fJ/exec"   // כתובת לקבלת פניות (Google Apps Script). ריק = תצוגה מקדימה, הפרטים לא נשלחים
 };
@@ -885,8 +974,6 @@ const CONFIG = {
 (function(){
   const pad=n=>String(n).padStart(2,"0");
   const now=new Date(), today=now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate());
-  document.getElementById("waLink").href="https://wa.me/"+CONFIG.DJ_PHONE;
-  document.querySelectorAll("a[data-wa]").forEach(a=>{ a.href="https://wa.me/"+CONFIG.DJ_PHONE; });
   document.querySelectorAll("form[data-lead]").forEach(initForm);
 
   function initForm(form){
@@ -953,6 +1040,24 @@ const CONFIG = {
   }
 })();
 
+/* ---- "10 שנות ניסיון": המספר נספר כשהכרטיס נכנס למסך (רק כשהנפשות מותרות) ---- */
+(function(){
+  const el=document.querySelector("[data-count]"); if(!el||!("IntersectionObserver" in window)) return;
+  const target=parseInt(el.dataset.count,10);
+  const io=new IntersectionObserver(es=>{
+    if(!es[0].isIntersecting) return;
+    io.disconnect();
+    if(!document.documentElement.classList.contains("js-anim")) return;
+    const t0=performance.now(), dur=1300;
+    (function tick(now){
+      const k=Math.min(1,(now-t0)/dur);
+      el.textContent=Math.round(target*(1-Math.pow(1-k,3)));
+      if(k<1) requestAnimationFrame(tick); else el.textContent=target;
+    })(t0);
+  },{threshold:.6});
+  io.observe(el);
+})();
+
 /* ---- תנועה: סרטון רקע והנפשות גלילה ---- */
 (function(){
   const root=document.documentElement, reduce=matchMedia("(prefers-reduced-motion: reduce)");
@@ -970,7 +1075,7 @@ const CONFIG = {
 
   /* כניסה הדרגתית של אלמנטים בגלילה */
   /* סרטוני הרחבה: כשמפעילים אחד, האחרים נעצרים */
-  const clips=[...document.querySelectorAll(".proof video")];
+  const clips=[...document.querySelectorAll(".proof video,.clip video")];
   clips.forEach(v=>v.addEventListener("play",()=>clips.forEach(o=>{ if(o!==v) o.pause(); })));
 
   const sel=".h2,.pain .rest,.form-card,.side-quote,.cards .card,.about .story p,.media .slot,.vid,.rec,.faq details";
